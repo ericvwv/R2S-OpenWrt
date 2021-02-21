@@ -1,10 +1,11 @@
 name: R2S-OpenWrt
 
 on:
-  schedule:
-    - cron: 5 9 * * 6
-  watch:
-    types: started
+  push:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/R2S-OpenWrt.yml'
+
 
 jobs:
   build:
@@ -72,7 +73,6 @@ jobs:
         cd openwrt
         mv ../SEED/R2S/config.seed .config
         make defconfig
-
     - name: Smart chmod
       run: |
         MY_Filter=$(mktemp)
@@ -82,7 +82,6 @@ jobs:
         find ./ -type f | grep -v -f ${MY_Filter} | xargs -s1024 file | grep 'executable\|ELF' | cut -d ':' -f1 | xargs -s1024 chmod 755
         rm -f ${MY_Filter}
         unset MY_Filter
-
     - name: Make Download
       run: |
         df -h
@@ -116,7 +115,7 @@ jobs:
         cd openwrt
         cd ..
         zip -r artifact.zip ./artifact/
-        release_tag="R2S-GC404-$(date +%Y-%m-%d)"
+        release_tag="R2S-6-$(date +%Y-%m-%d)"
         echo "##[set-output name=release_tag;]$release_tag"
     - name: Upload Artifact
       uses: actions/upload-artifact@main
@@ -130,7 +129,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.workflow_token }}
       with:
         tag_name: ${{ steps.assemble_artifact.outputs.release_tag }}
-        release_name: 自动发布 ${{ steps.assemble_artifact.outputs.release_tag }}
+        release_name:  ${{ steps.assemble_artifact.outputs.release_tag }}
         draft: false
         prerelease: false
 
