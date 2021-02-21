@@ -9,8 +9,6 @@ forked from QiuSimons/R2S-R4S-X86-OpenWrt https://github.com/QiuSimons/R2S-R4S-X
 
 1.登陆IP：192.168.1.1 密码：无
 
-2.OP内置升级可用
-
 3.遇到上不了网的，请自行排查自己的ipv6联通情况。（推荐关闭ipv6，默认已关闭ipv6的dns解析，手动可以在DHCP/DNS里的高级设置中调整）
 
 4.刷写或升级后遇到任何问题，可以尝试ssh进路由器，输入fuck，回车后等待重启，或可解决，如仍有异常，建议ssh进路由器，输入firstboot -y && reboot now，回车后等待重启
@@ -23,9 +21,7 @@ LUCI版本：21.02（当日最新）
 
 其他模块版本：21.02（当日最新）
 
-
 ### 特性及功能：
 1.O2编译
-
 3.插件包含：，PassWall，，AdguardHome，，SmartDNS，ChinaDNS，UPNP，FullCone(防火墙中开启，默认开启)，
 
