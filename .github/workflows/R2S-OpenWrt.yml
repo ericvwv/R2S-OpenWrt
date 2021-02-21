@@ -1,6 +1,8 @@
 name: R2S-OpenWrt
 
 on:
+  schedule:
+    - cron: 5 9 * * 6
   watch:
     types: started
 
@@ -70,6 +72,7 @@ jobs:
         cd openwrt
         mv ../SEED/R2S/config.seed .config
         make defconfig
+
     - name: Smart chmod
       run: |
         MY_Filter=$(mktemp)
@@ -79,6 +82,7 @@ jobs:
         find ./ -type f | grep -v -f ${MY_Filter} | xargs -s1024 file | grep 'executable\|ELF' | cut -d ':' -f1 | xargs -s1024 chmod 755
         rm -f ${MY_Filter}
         unset MY_Filter
+
     - name: Make Download
       run: |
         df -h
