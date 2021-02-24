@@ -1,8 +1,6 @@
 name: R2S-OpenWrt
 
 on:
-  push:
-    branches: [ master ]
   watch:
     types: started
 
@@ -116,7 +114,7 @@ jobs:
         cd openwrt
         cd ..
         zip -r artifact.zip ./artifact/
-        release_tag="R2S-6-$(date +%Y-%m-%d)"
+        release_tag="R2S-GC404-$(date +%Y-%m-%d)"
         echo "##[set-output name=release_tag;]$release_tag"
     - name: Upload Artifact
       uses: actions/upload-artifact@main
@@ -130,7 +128,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.workflow_token }}
       with:
         tag_name: ${{ steps.assemble_artifact.outputs.release_tag }}
-        release_name:  ${{ steps.assemble_artifact.outputs.release_tag }}
+        release_name: 自动发布 ${{ steps.assemble_artifact.outputs.release_tag }}
         draft: false
         prerelease: false
 
