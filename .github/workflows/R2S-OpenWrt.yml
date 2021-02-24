@@ -1,8 +1,8 @@
 name: R2S-OpenWrt
 
 on:
-  watch:
-    types: started
+  push:
+    branches: [ master ]
 
 jobs:
   build:
